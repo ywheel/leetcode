@@ -36,6 +36,8 @@ public class TwoSum {
     				result[0] = (index[i] < index[j] ? index[i] : index[j]) + 1;
     				result[1] = (index[i] > index[j] ? index[i] : index[j]) + 1;
     				return result;
+    			} else if (sum > target) {
+    			    break;
     			}
     		}
     	}
