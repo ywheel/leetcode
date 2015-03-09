@@ -21,42 +21,24 @@ public class SearchForARange {
         }
         int l = 0;
         int r = A.length - 1;
-        boolean hasTarget = false;
-        int mid = (l + r) / 2;
-        while (l <= r) {
-            mid = (l + r) / 2;
-            if (A[mid] == target) {
-                hasTarget = true;
-                break;
-            } else if (A[mid] < target) {
-                l = mid + 1;
-            } else {
-                r = mid -1;
-            }
-        }
-        if (!hasTarget) {
-            return result;
-        }
-        // at this point, A[mid] = target, then need to find the range
         // 1. find left range
-        l = 0;
-        r = mid;
-        result[1] = mid;
         while (l <= r) {
-            mid = (l + r) / 2;
-            if (A[mid] == target) {
+            int mid = (l + r) / 2;
+            if (A[mid] >= target) {
                 r = mid - 1;
             } else {
-                // must be less than target
                 l = mid + 1;
             }
+        }
+        if (l >= A.length || A[l] != target) {
+            // not found
+            return result;
         }
         result[0] = l;
         // 2. find right range
-        l = result[1];
         r = A.length - 1;
         while (l <= r) {
-            mid = (l + r) / 2;
+            int mid = (l + r) / 2;
             if (A[mid] == target) {
                 l = mid + 1;
             } else {
@@ -70,7 +52,15 @@ public class SearchForARange {
     }
     public static void main(String[] args) {
         SearchForARange solution = new SearchForARange();
-        int[] result = solution.searchRange(new int[]{5,7,7,8,8,10}, 8);
+        int[] result = solution.searchRange(new int[]{1,2,3}, 1);
+        if (result != null & result.length == 2) {
+            System.out.println(String.format("[%d,%d]", result[0], result[1]));
+        }
+        result = solution.searchRange(new int[]{1}, 0);
+        if (result != null & result.length == 2) {
+            System.out.println(String.format("[%d,%d]", result[0], result[1]));
+        }
+        result = solution.searchRange(new int[]{5, 7, 7, 8, 8, 10}, 8);
         if (result != null & result.length == 2) {
             System.out.println(String.format("[%d,%d]", result[0], result[1]));
         }
