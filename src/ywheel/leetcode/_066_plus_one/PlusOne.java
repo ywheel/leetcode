@@ -13,21 +13,16 @@ package ywheel.leetcode._066_plus_one;
 public class PlusOne {
     public int[] plusOne(int[] digits) {
         if (digits == null || digits.length == 0) return digits;
-        boolean flag = digits[digits.length - 1] == 9 ? true : false;
-        digits[digits.length - 1] = (digits[digits.length - 1] + 1) % 10;
-        if (!flag) {
-            return digits;
-        }
-        for (int i=digits.length - 2; i >= 0; i--) {
-            digits[i] = digits[i] + 1;
+        int carry = 1;
+        for (int i=digits.length - 1; i >= 0; i--) {
+            digits[i] = digits[i] + carry;
             if (digits[i] < 10) {
-                flag = false;
                 return digits;
             } else {
                 digits[i] = 0;
+                carry = 1;
             }
         }
-        // flag must be true
         int[] newDigits = new int[digits.length + 1];
         newDigits[0] = 1;
         System.arraycopy(digits, 0, newDigits, 1, digits.length);
