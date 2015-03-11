@@ -28,26 +28,30 @@ public class MergeTwoSortedLists {
         } else if (l2 == null) {
             return l1;
         } else {
+            // merge l2 to l1
             ListNode head = null;
-            ListNode next = new ListNode(0); // before head
-            while (l1 != null || l2 != null) {
-                if (l1 != null && l2 != null) {
-                    if (l1.val < l2.val) {
-                        next.next = l1;
-                        l1 = l1.next;
+            ListNode prev = null;
+            while (l2 != null) {
+                if (l1 == null) {
+                    prev.next = l2;
+                    break;
+                }
+                if (l1.val > l2.val) {
+                    if (prev == null) {
+                        prev = l2;
                     } else {
-                        next.next = l2;
-                        l2 = l2.next;
+                        prev.next = l2;
                     }
-                } else if (l1 == null) {
-                    next.next = l2;
-                    l2 = l2.next;
+                    ListNode node = l2.next;
+                    l2.next = l1;
+                    prev = l2;
+                    l2 = node;
                 } else {
-                    next.next = l1;
+                    prev = l1;
                     l1 = l1.next;
                 }
-                head = head == null ? next.next : head;
-                next = next.next;
+                head = head == null ? prev : head;
+                
             }
             return head;
         }
@@ -71,8 +75,8 @@ public class MergeTwoSortedLists {
     }
     public static void main(String[] args) {
         MergeTwoSortedLists solution = new MergeTwoSortedLists();
-        ListNode l1 = solution.construct(new int[]{1,4,6});
-        ListNode l2 = solution.construct(new int[]{2,3,5,8});
+        ListNode l1 = solution.construct(new int[]{1});
+        ListNode l2 = solution.construct(new int[]{1});
         ListNode result = solution.mergeTwoLists(l1, l2);
         while (result != null) {
             System.out.print(result.val + ",");
