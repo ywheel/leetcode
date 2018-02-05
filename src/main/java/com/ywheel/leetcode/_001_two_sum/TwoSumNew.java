@@ -1,7 +1,7 @@
 package com.ywheel.leetcode._001_two_sum;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
@@ -19,7 +19,18 @@ import java.util.Comparator;
  */
 public class TwoSumNew {
 	public int[] twoSum(final int[] numbers, int target) {
+		if (numbers == null || numbers.length < 2) {
+			return null;
+		}
 
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i = 0; i < numbers.length; i++) {
+			int another = target - numbers[i];
+			if (map.containsKey(another)) {
+				return new int[]{map.get(another), i};
+			}
+			map.put(numbers[i], i);
+		}
 		return null;
 	}
 }

@@ -1,6 +1,5 @@
-package test.java.com.ywheel.leetcode._001_two_sum;
+package com.ywheel.leetcode._001_two_sum;
 
-import main.java.com.ywheel.leetcode._001_two_sum.TwoSumNew;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,11 @@ public class TwoSumNewTest {
 
     @Test
     public void test() {
-
+        int[] numbers = {2, 7, 11, 15};
+        int target = 9;
+        int[] expect = {0, 1};
+        int[] result = twoSumNew.twoSum(numbers, target);
+        Assert.assertArrayEquals(expect, result);
     }
 
 }
